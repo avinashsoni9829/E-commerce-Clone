@@ -15,10 +15,10 @@ Form
 
 
 const ProductDetails = ({history ,match}) => {
-     {/* finding the product int the product array  */}
+     
    
        // intital state = 0 as no qty is selected initially 
-       const [qty, setQty] = useState(1);
+    const [qty, setQty] = useState(1);
     const dispatch = useDispatch();
     
     const productDetails = useSelector(state => state.productDetails)

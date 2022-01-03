@@ -33,7 +33,7 @@ connectDb();
 
            await Product.insertMany(sampleData);
            console.log("Data imported!!".green.inverse);
-           proccess.exit();
+           process.exit();
 
        }
        catch(err){
@@ -50,7 +50,7 @@ connectDb();
  const dataDestroy =  async() =>{
      try{
         await order.deleteMany();
-        await product.deleteMany();
+        await Product.deleteMany();
         await user.deleteMany(); 
         console.log("Data destroyed!!".green.inverse);
         process.exit();

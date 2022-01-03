@@ -14,6 +14,7 @@ export const listProducts = () => async(dispatch) => {
                    // data is recived from web
                    const {data} = await axios.get('/api/products')
                    // dispatch the success signal once the data is recived from PRODUCT_LIST_REQUEST and in action.payload set the data
+                   console.log(data);
                    dispatch({
                        type:PRODUCT_LIST_SUCCESS,
                        payload : data
