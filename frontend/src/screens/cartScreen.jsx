@@ -1,10 +1,18 @@
-import React,{useEffect} from 'react'
-import {useDispatch,useSelector} from 'react-redux'
-import {Row,Col,Form,Button,Card,Image,ListGroup as Li} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
-
-import { addToCart } from '../actions/CartAction';
-import Message from '../components/shared/Message';
+import React, { useEffect } from "react";
+import Message from "../components/shared/Message";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Row,
+  Col,
+  Form,
+  Button,
+  Card,
+  Image,
+  ListGroup as Li,
+  ListGroupItem,
+} from "react-bootstrap";
+import { addToCart} from "../actions/CartAction";
 
 const CartScreen = ({match,location,history}) => {
     const productid = match.params.id // id from the URL
@@ -56,7 +64,7 @@ const CartScreen = ({match,location,history}) => {
                                           <Col md = {2}>
                                           <Form.Control as ="select" value = {item.qty} onChange = {e => dispatch(addToCart(item.product , Number(e.target.value)))}>
                                         {
-                                            [...Array(item.stock).keys()].map((x) => (
+                                            [...Array(item.countInStock).keys()].map((x) => (
                                                 <option key = {x + 1} value = {x + 1}>{x + 1}</option>
                                             ))
                                         }
@@ -76,9 +84,19 @@ const CartScreen = ({match,location,history}) => {
            </Col>
            <Col md = {4}>
                <Card>
-                   <Li>
-                       <h2> subtotal ({cartItems.reduce((acc , item) => acc + item.qty,0 )}) items</h2>
-                   </Li>
+               <Li variant="flush">
+              <ListGroupItem>
+                <h2>
+                  subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                  ) items
+                </h2>
+                $
+                {cartItems
+                  .reduce((acc, item) => acc + item.qty * item.price, 0)
+                  .toFixed(2)}
+              </ListGroupItem>
+              
+            </Li>
                </Card>
            </Col>
        </Row>

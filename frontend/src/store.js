@@ -1,14 +1,17 @@
-import  {applyMiddleware, combineReducers, createStore} from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools} from 'redux-devtools-extension'
-import { ProductListReducer  , productDetailsReducer } from './reducers/ProductReducer';
-import { cartReducer } from './reducers/cartReducers';
-const cartItemsFromStorage  = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import {
+    ProductListReducer,
+    productDetailsReducer,
+} from "./reducers/ProductReducer";
+import { cartReducer } from "./reducers/cartReducer";
+
 
 const rootreducer = combineReducers({
     productList : ProductListReducer,
     productDetails : productDetailsReducer,
-    cart : cartReducer   
+    cart : cartReducer,  
     
 
 
@@ -17,13 +20,17 @@ const rootreducer = combineReducers({
 const initialState = 
 { 
    cart:{
-       cartItems : cartItemsFromStorage
+     
    }                       
 };
 
 const middleware = [thunk];
 
-const store = createStore(rootreducer, initialState , composeWithDevTools(applyMiddleware(...middleware)));
-// ... this is used  to spread all the middlewares in the array
-export default  store ;
+const store = createStore(
+  rootreducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
+
+export default store;
 

@@ -1,7 +1,7 @@
 // here our req is a ajax call 
 
 const express = require('express');
-const Product = require('../models/product');
+const Product = require('../models/ProductModel');
 const asyncHandler = require('express-async-handler');
 const router = express.Router();
 

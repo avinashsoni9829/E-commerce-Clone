@@ -1,75 +1,50 @@
-require('colors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const users = require('./data/users');
-const user = require('./models/user');
-const Product = require('./models/product');
-const order = require('./models/order');
-const products = require('./data/products');
-const connectDb = require('./config/config');
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+require("colors");
+const users = require("./data/users");
+const User = require("./models/UserModel");
+const Product = require("./models/ProductModel");
+const Order = require("./models/OrderModel");
+const products = require("./data/products");
+const connectDb = require("./config/config");
 
 dotenv.config();
 connectDb();
 
- // first we will import data 
+const importData = async () => {
+  try {
+    await Order.deleteMany();
+    await Product.deleteMany();
+    await User.deleteMany();
+    const createUser = await User.insertMany(users);
+    const adminUser = createUser[0]._id;
+    const sampleData = products.map((product) => {
+      return { ...product, user: adminUser };
+    });
+    await Product.insertMany(sampleData);
+    console.log("Data Imported!!".green.inverse);
+    process.exit();
+  } catch (error) {
+    console.log(`${error}`.red.inverse);
+    process.exit(1);
+  }
+};
 
- const importData = async () => {
-       try{
-           await order.deleteMany();
-           await Product.deleteMany();
-           await user.deleteMany();
-           // creating new user and passing dummy user data  
-           const createUser = await user.insertMany(users);
+const dataDestory = async () => {
+  try {
+    await Order.deleteMany();
+    await Product.deleteMany();
+    await User.deleteMany();
+    console.log("Data Destory".green.inverse);
+    process.exit();
+  } catch (error) {
+    console.log(`${error}`.red.inverse);
+    process.exit(1);
+  }
+};
 
-           const adminUser =  createUser[0]._id
-
-           // storing sample data for
-
-           const sampleData = products.map(product => {
-               return {
-                   ...product , user : adminUser
-               }
-           })
-
-           await Product.insertMany(sampleData);
-           console.log("Data imported!!".green.inverse);
-           process.exit();
-
-       }
-       catch(err){
-
-        console.log(`${err}`.red.inverse);
-        
-        process.exit(1);
-
-       }
- };
-
- 
-
- const dataDestroy =  async() =>{
-     try{
-        await order.deleteMany();
-        await Product.deleteMany();
-        await user.deleteMany(); 
-        console.log("Data destroyed!!".green.inverse);
-        process.exit();
-     }
-     catch(error){
-        console.log(`${error}`.red.inverse);
-        process.exit();
-    
-     }
-
-   
- }
-
-
- if(process.argv[2] === "-d"){
-     dataDestroy();
- }
- else{
-     
-    importData();
-
- }
+if (process.argv[2] === "-d") {
+  dataDestory();
+} else {
+  importData();
+}
