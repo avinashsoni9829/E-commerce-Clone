@@ -5,12 +5,12 @@ import {
     ProductListReducer,
     productDetailsReducer,
 } from "./reducers/ProductReducer";
-import { cartReducer } from "./reducers/cartReducer";
+
 
 const rootreducer = combineReducers({
     productList : ProductListReducer,
     productDetails : productDetailsReducer,
-    cart : cartReducer,  
+   
     
 
 
