@@ -5,8 +5,8 @@ import Footer from './components/footer';
 import Header from './components/Header';
 import HomeScreen from './screens/HomeScreen'
 import {BrowserRouter as Router , Route} from 'react-router-dom';
-
 import ProductDetails  from './screens/ProductDetails';
+import CartScreen from './screens/CartScreen';
 
 
 function App() {
@@ -20,6 +20,8 @@ function App() {
 
     <Route path="/" component={HomeScreen} exact />
     <Route  path="/product/:id" component={ProductDetails}  />
+    <Route  path="/cart/:id?" component={CartScreen}  />
+    
     
     </Container>
     </main>
