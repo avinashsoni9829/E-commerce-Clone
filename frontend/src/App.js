@@ -7,7 +7,7 @@ import HomeScreen from './screens/HomeScreen'
 import {BrowserRouter as Router , Route} from 'react-router-dom';
 
 import ProductDetails  from './screens/ProductDetails';
-import CartScreen from './screens/CartScreen';
+import CartScreen from './screens/cartScreen';
 
 function App() {
   return (
