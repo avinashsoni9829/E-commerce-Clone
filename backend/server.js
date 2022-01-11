@@ -8,6 +8,7 @@ const products = require('./data/products');
 const cors = require('cors')
 const connectDb = require('./config/config')
 const productRoutes = require('./routes/productsRoutes');
+const userRoutes = require('./routes/UserRoute');
 
 
 // connecting to mongodb database 
@@ -15,6 +16,9 @@ connectDb();
 
 
 const app = express();
+
+app.use(express.json());
+
 
 // configuration of .env
 
@@ -36,7 +40,9 @@ app.get('/t',(req , res) => {
 
 
 app.use('/api',productRoutes);
- 
+app.use('/api/users',userRoutes);
+
+
 // using the error handler middleware  to check for the errors and setting the status code acc to the neeed and sending json responce
 
 app.use(errorHandler);
