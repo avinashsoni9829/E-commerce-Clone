@@ -64,7 +64,7 @@ const ProductDetails = ({ history, match }) => {
             <ListGroupItem>
               <Row>
                 <Col>Qty</Col>
-                <Form.Control
+                <Form.Control 
                   as="select"
                   value={qty}
                   onChange={(e) => setQty(e.target.value)}
